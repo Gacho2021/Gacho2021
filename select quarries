@@ -1,0 +1,54 @@
+Select * from person;
+Select personlastname, personfirstname, personemail
+from person;
+Select personlastname, personfirstname, personemail
+from person
+order by personlastname, personfirstname;
+Select personlastname, personfirstname, personemail
+from person
+order by personlastname DESC, personfirstname DESC;
+--there is ASC keyword--but it is always the default
+select * from donation;
+select * from donation
+order by donationamount DESC;
+Select personfirstname as "first name", personlastname as "last name", personemail as email
+from person;
+--the where clause
+select * from personAddress where personaddresscity='Seattle';
+
+select * from donation where donationdate='2021-02-10';
+--and or not
+Select * from donation
+where donationamount >900
+OR donationdate > '2021-02-10';
+Select * from personaddress
+where personaddressstate='Washington'
+AND personaddressstate='Oregon';
+
+SELECT * from personaddress
+Where personaddressapt is null;
+
+SELECT * from personaddress
+Where personaddressapt is not null;
+
+--like
+select personlastname, personfirstname, personemail from person
+where personlastname like 'nn';
+
+select * from donation
+where donationamount >77;
+
+Select * from donation
+where donationamount <=100;
+
+Select from donation
+where donationamount between 77 and 100;
+
+--case
+select sectionkey, studentkey,
+When final grade >= 3.5 to 4 then 'A'
+when final grade between 3.0 and 3.49 then 'B'
+when final grade < 2.5 to 2.99 then 'C'
+When final grade between <= 2.0 and 2.49 then 'D'
+When final grade < 2 then 'F'
+Donationamount from donation;
