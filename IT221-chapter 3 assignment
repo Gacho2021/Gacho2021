@@ -1,0 +1,22 @@
+select * from pricehistory;
+
+select pricepercredit * 5 from pricehistory
+where pricehistorykey = 3;
+
+select pricepercredit * 5 from pricehistory
+where pricehistorykey = 2;
+
+select distinct extract(year from dateadded) from person;
+
+select * from pricehistory;
+select pricepercredit * 15-(pricepercredit * 15 *.05) from pricehistory
+where pricehistorykey = 3;
+
+select pricepercredit * 15-(pricepercredit * 15 *.02) from pricehistory
+where pricehistorykey = 4;
+
+select max(finalgrade) from roster;
+Select studentkey, avg(finalgrade) from roster group by studentkey having avg(finalgrade) > 3.5;
+
+select max(finalgrade) from roster;
+Select studentkey, avg(finalgrade) from roster group by studentkey having avg(finalgrade) < 3.5;
