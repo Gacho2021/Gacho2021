@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+        <head>
+         <meta charset="UTF-7">
+         <meta http-equiv="X-UA-compatible"
+         content="IE=edge">
+        <meta name="viewport"
+         content="width=devic-width, initial-scale=1.0">
+        <title>Document</title>
+    <h1>Seattle Hotel</h1>
+    <h2>Hotel availability</h2>
+    <div id="info"></div>
+    <script src="js/multiple-object.js"></script>
+  </body>
+</html>
+
+        
+    // Create a variable and find the room avaliability 
+let msg = '<h2>hotel 1</h2>name: dakota<p>total rooms: 70'; 
+// Find the number of rooms 
+msg += '<h2>hotel 2</h2>name: silver cloud<p>total rooms: 50';
+ 
+// set a variable for selectots
+var el = document.getElementById('info');
+ //inserted variable into the objcts
+el.innerHTML = msg;
+     
