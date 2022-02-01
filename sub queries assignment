@@ -6,17 +6,17 @@ select sectionkey, round(avg(finalgrade),2)sectionavg,(select round(avg(finalgra
 (select round( avg(finalgrade),2)from roster)-round(avg(finalgrade),2)def from roster group by sectionkey;
 
 select firstname, lastname, email from (select personfirstname as firstname,
-										personlastname as lastname, personemail as email
-										from person
-										inner join student
-										on person.personkey=student.personkey) as student;
+					personlastname as lastname, personemail as email
+					from person
+					inner join student
+					on person.personkey=student.personkey) as student;
 										
 with student as
 (
 select personfirstname as firstname, personlastname as lastname, personemail as email
-										from person
-										inner join student
-										on person.personkey=student.personkey
+					from person
+					inner join student
+					on person.personkey=student.personkey
 	)
 select firstname, lastname, email from person; 
 
