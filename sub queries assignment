@@ -1,1 +1,35 @@
+select coursename from course where coursekey in(select coursekey from certificatecourse where certificatekey=3);
+select firstname, lastname, dateadded from person where dateadded=(select min(dateadded)from person);
+select studentkey from student where studentkey not in(select studentkey from roster);
 
+select sectionkey, round(avg(finalgrade),2)sectionavg,(select round(avg(finalgrade),2)from roster) totalavg,
+(select round( avg(finalgrade),2)from roster)-round(avg(finalgrade),2)def from roster group by sectionkey;
+
+select firstname, lastname, email from (select personfirstname as firstname,
+										personlastname as lastname, personemail as email
+										from person
+										inner join student
+										on person.personkey=student.personkey) as student;
+										
+with student as
+(
+select personfirstname as firstname, personlastname as lastname, personemail as email
+										from person
+										inner join student
+										on person.personkey=student.personkey
+	)
+select firstname, lastname, email from person; 
+
+with instructors as
+(
+	select personfirstname as firstname, lastname, dateadded from person
+	inner join instructors on person.personkey=instructors.personkey
+	)
+	select firstname, lastname, dateadded from instructors;
+	
+select personname from personkey;
+select personkey, studentsartdate, statuskey
+from personkey g1
+where studentkey < (select avg(studentkey) from personkey g2
+							  where g1.studentkey=g2.studentkey)
+order by studentkey;
