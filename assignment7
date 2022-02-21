@@ -13,3 +13,13 @@
                 <script src="hw7.js"></script>
                 </body>
                 </html>
+
+//script
+let valueOne = prompt("How many miles per gallon does your car use?\n Enter miles driven");
+let valueTwo = parseInt(prompt("Enter gallons of gas used" ));
+
+let valueThree = parseInt(prompt("Miles Per Gallon"));
+let MPG = valueOne / valueTwo
+let message = `${valueOne} Calculate MPG`
+let firstP = document.getElementById('firstP')
+FirstP.innerHTML = message
