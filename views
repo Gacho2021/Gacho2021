@@ -1,1 +1,67 @@
+create schema instructorschema;
+
+--views
+create view instructorschema.instructorview
+as 
+select instructor.instructorkey,
+lastname as lastname, 
+firstname as firstname,
+email as email
+from person
+join instructor using(personkey);
+
+
+create view instructorschema.instructorSeattle
+as 
+select instructor.instructorkey,
+lastname as lastname, 
+firstname as firstname,
+email as email
+from person
+join instructor using(personkey)
+where city='Seattle';
+select * from instructorschema.instructorSeattle;
+
+insert into person(personlastname, personfirstname, personemail) values
+('Melanie', 'Jackson', 'melijack@gmail.com', '111 south Anderson Street',
+	  'seattle', 'WA', '98002','2065552323', current_date);
+	  
+--update
+create view instructorschema.seattleaddressview
+as 
+select personkey, personlastname, personfirstname, personemail, personaddress, 
+personcity, personstate, personpostalcode, personphone, persondateadded
+from personaddress
+where personcity='Seattle';
+
+select * from person order by personkey;
+update person
+set personfirstname="kane" to "Kenneth"
+where personkey=330;
+
+select * from instructorschema.seattleaddressview;
+
+insert into instructorschema.seattleaddressview(personkey, personlastname, personfirstname, 
+personemail, personaddress, personcity, personstate, personpostalcode, personphone, persondateadded)
+values('Rachel Normman', 'rachelnorman@msn.com', '212 Mercer Avenue', 
+	   'New York', 'NY', '00234', '1035552310',current_date);
+
+select * from instructorschema.seattleaddressview;
+select * from personaddress;
+
+--materialized view
+drop materialized view instructorschema.topdonors;
+create materialized view instructorschema.topdonors
+as 
+select personfirstname as firstname,
+personlastname as lastname,
+studentstartdate,
+statusname as status
+from person
+join status using(personkey)
+order by statusname desc
+limit 3
+with data;
+
+refresh materialized view instructorschema.topdonrs;
 
