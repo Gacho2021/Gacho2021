@@ -1,1 +1,145 @@
+--function to create a username
+create or replace function employeschema.makeusername
+(firstname text, lastnmae text)
+AS parameters
+begin 
+return 
+Return LOWER(substring(firstname, 1,1 || lastname));
+End;
+parameters language plpgsql;
 
+select personfirstname, personlastname, employeschema.makeusername(
+personfirstname, personlastname) from person;
+
+--create function and return integer
+create or replace function employeschema.getcertificate
+(certificatekey integer)
+Returns table(
+"Date" Timestamp,
+	Amount Numeric,
+	validation UUID
+)
+AS parameters
+begin
+return query
+select certificatename, certificatedescription
+from certificate
+where personkey = certificatekey;
+END;
+parameters language plpgsql;
+
+--create functions that return cost of section
+create or replace function employeschema.getsection
+(sectionkey integer)
+Returns numeric(
+"Date" Timestamp,
+	Amount Numeric,
+	validation UUID
+)
+AS parameters
+begin
+return query
+select coursename, coursedescription
+from course
+where personkey = sectionkey;
+END;
+parameters language plpgsql;
+
+--create function total number of credit
+create function studentschema.getcredits
+(personkey integer)
+returns numeric 
+)
+AS parameters
+begin
+return query
+select * from logintable where personkey=136;
+
+--function that a return table
+create or replace function employeeschema.getcoursename.credits.grade
+(coursekey integer)
+Returns table()
+return query
+select coursename, credits, coursedescription
+from course
+where personkkey = coursekey;
+
+--procedure
+create or replace function addperson(
+lastname text,
+	firstname text,
+	email text,
+	address text,
+	city text,
+	"state" char(2),
+	postalcode text,
+	phone text,
+	dateadded text,
+) 
+returns void
+AS parameters
+insert into person(personlastname, personfirstname, personemail, personaddress, 
+			personcity, personstate, personpostalcode, personphone, 
+				  persondateadded)
+	values(currval('person_personkey_seq'));
+	
+	insert into logintable(personkey, personlogintablekey, personusername, personpassword, 
+						  persondatelastchenged)
+	values(currval(person_personkey_seq), employeeschema.makeusername(firstname, lastname));
+	
+	select * from logintable where personkey=137;
+	
+	--a procedure for updating a person's information
+	create or replace function EditPerson
+(
+	personkey integer
+	firstname text,
+	lastname text,
+	email text,
+	phone text,
+	address text,
+) return void
+AS parameters
+update person
+set personfirstname=firstname,
+personlastname=lastname,
+personemail=email,
+personphone=phone,
+where personkey=pkey;
+
+update personaddress
+set personaddresscity=city,
+personaddressstate="state",
+personaddresspostalcode=postalcode,
+where personkey=pkey;
+
+$$ language sql;
+select * from personaddress where personkey=137;
+
+--A trigger is a procedure that is triggered by an event
+alter table roster
+add lowgradeflag Boolean default false;
+
+create or replace function flagrequest()
+returns trigger as 
+$body$
+begin
+if new.finalgrade < 2
+select sectionkeymin from rosterkey
+where sectionkey=new.roster
+then 
+    update sectionkey
+	setlowgradeflag=true
+	where rosterkey=new.studentkey;
+
+--create trigger
+after update
+on rosterkey
+for each row
+execute procedure flagrequest();
+
+select * from rosterkey;
+insert into roster(sectionkey, studentkey, finalgarde,)
+values( current_timestamp, 132, 1, 200 'happy');
+
+select * from sectionkey;
